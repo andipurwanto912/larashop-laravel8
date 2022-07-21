@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -13,12 +14,33 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //halaman utama view users
-        $users = \App\Models\User::paginate(10);
+        $filterKeyword = $request->get('keyword');
 
-        return view('users.index', ['users'=>$users]);
+        $status = $request->get('status');
+
+        if($status){
+            $users = \App\Models\User::where('email', 'LIKE', "%$filterKeyword%")
+                ->where('status', $status)
+                ->paginate(10);
+        } else {
+            $users = \App\Models\User::paginate(10);
+        }
+
+        if($filterKeyword){
+            if($status){
+                $users = \App\Models\User::where('email', 'LIKE', "%$filterKeyword%")
+                    ->where('status', $status)
+                    ->paginate(10);
+            } else {
+                $users = \App\Models\User::where('email', 'LIKE', "%$filterKeyword%")
+                        ->paginate(10);
+            }
+        }
+
+        return view('users.index', ['users' => $users]);
     }
 
     /**

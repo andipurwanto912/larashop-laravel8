@@ -41,10 +41,15 @@
                 @endforeach
                <br>
                <br>
-               <a
-                href="{{route('users.index', [$user->id])}}"
-                class="btn text-white btn-danger btn-sm">Back</a>
+
+               <div class="row">
+                    <div class="col-md-12 text-right">
+                    <a
+                        href="{{route('users.index')}}"
+                        class="btn btn-dark">Back</a>
+                </div>
             </div>
         </div>
     </div>
+</div>
 @endsection
