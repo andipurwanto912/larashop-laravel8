@@ -123,6 +123,14 @@
                     </a>
                 </li>
 
+                <li>
+                    <a href="{{route('categories.index')}}">
+                        <span
+                            class="oi oi-tag">
+                        </span>Manage Categories
+                    </a>
+                </li>
+
                 <div
                     class="d-block d-md-none">
 

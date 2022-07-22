@@ -24,19 +24,19 @@ class UserController extends Controller
         if($status){
             $users = \App\Models\User::where('email', 'LIKE', "%$filterKeyword%")
                 ->where('status', $status)
-                ->paginate(10);
+                ->paginate(5);
         } else {
-            $users = \App\Models\User::paginate(10);
+            $users = \App\Models\User::paginate(5);
         }
 
         if($filterKeyword){
             if($status){
                 $users = \App\Models\User::where('email', 'LIKE', "%$filterKeyword%")
                     ->where('status', $status)
-                    ->paginate(10);
+                    ->paginate(5);
             } else {
                 $users = \App\Models\User::where('email', 'LIKE', "%$filterKeyword%")
-                        ->paginate(10);
+                        ->paginate(5);
             }
         }
 

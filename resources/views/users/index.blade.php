@@ -47,6 +47,8 @@
     </div>
 </form>
 
+    <hr class="my-3">
+
     <div class="row">
         <div class="col-md-12 text-right">
             <a
@@ -56,7 +58,7 @@
         </div>
     <br>
 
-    <table class="table table-bordered">
+    <table class="table table-bordered table-striped">
         <thead>
             <tr>
                 <th><b>Name</b></th>
