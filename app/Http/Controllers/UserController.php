@@ -135,25 +135,35 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //update data user db
+        \Validator::make($request->all(), [
+            "name" => "required|min:5|max:100",
+            "roles" => "required",
+            "phone" => "required|digits_between:10,12",
+            "address" => "required|min:20|max:200",
+            ])->validate();
+
         $user = \App\Models\User::findOrFail($id);
 
         $user->name = $request->get('name');
         $user->roles = json_encode($request->get('roles'));
         $user->address = $request->get('address');
         $user->phone = $request->get('phone');
+        $user->status = $request->get('status');
+            if($request->file('avatar')){
 
-        if ($request->file('avatar')) {
-            if ($user->avatar && file_exists(storage_path('app/public/' . $user->avatar)))
-            {
-                \Storage::delete(['public/'.$user->avatar]);
+                if($user->avatar && file_exists(storage_path('app/public/' .$user->avatar)))
+                {
+                    \Storage::delete('public/'.$user->avatar);
+                }
+
+                $file = $request->file('avatar')->store('avatars', 'public');
+                $user->avatar = $file;
             }
-            $file = $request->file('avatar')->store('avatars', 'public');
-            $user->avatar = $file;
-        }
+
         $user->save();
 
         return redirect()->route('users.edit', [$id])
-        ->with('status', 'User successfully updated');
+        ->with('status', 'Usersuccesfully updated');
     }
 
     /**
