@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
 {
@@ -46,7 +47,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //menambahkan kategoru di db
+        //menambahkan kategori di db
+        \Validator::make($request->all(), [
+            "name" => "required|min:3|max:20",
+            "image" => "required"
+        ])->validate();
+
         $name = $request->get('name');
 
         $new_category = new \App\Models\Category;
@@ -110,6 +116,15 @@ class CategoryController extends Controller
         $slug = $request->get('slug');
 
         $category = \App\Models\Category::findOrFail($id);
+
+        \Validator::make($request->all(), [
+            "name" => "required|min:3|max:20",
+            "image" => "required",
+            "slug" => [
+            "required",
+            Rule::unique("categories")->ignore($category->slug, "slug")
+            ]
+        ])->validate();
 
         $category->name = $name;
         $category->slug = $slug;

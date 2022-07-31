@@ -24,43 +24,59 @@
                 value="PUT"
                 name="_method">
 
-                <label>Category name</label> <br>
-                <input
-                    type="text"
-                    class="form-control"
-                    value="{{$category->name}}"
-                    name="name">
-                    <br><br>
+            <label>Category name</label> <br>
+            <input
+                type="text"
+                class="form-control {{$errors->first('name') ? "is-invalid" :""}}"
+                value="{{old('name') ? old('name') : $category->name}}"
+                name="name">
 
-                <label>Cateogry slug</label>
-                <input
-                    type="text"
-                    class="form-control"
-                    value="{{$category->slug}}"
-                    name="slug">
-                    <br><br>
+                <div class="invalid-feedback">
+                    {{$errors->first('name')}}
+                </div>
+                <br><br>
 
-                <label>Category image</label><br>
-                    @if($category->image)
-                        <span>Current image</span><br>
-                        <img src="{{asset('storage/'. $category->image)}}" width="120px">
-                        <br><br>
-                    @endif
-                <input
-                    type="file"
-                    class="form-control"
-                    name="image">
+            <label>Cateogry slug</label>
+            <input
+                type="text"
+                class="form-control {{$errors->first('slug') ? "is-invalid" : ""}}"
+                value="{{old('slug') ? old('slug') : $category->slug}}"
+                name="slug">
 
-                    <small class="text-muted">Kosongkan jika tidak ingin mengubah gambar</small>
-                    <br><br>
+                <div class="invalid-feedback">
+                    {{$errors->first('slug')}}
+                </div>
+                <br><br>
 
-                <input
-                    type="submit"
-                    class="btn btn-primary btn-sm"
-                    value="Update">
+            <label>Category image</label><br>
+                @if($category->image)
+            <span>Current image</span><br>
+            <img
+                src="{{asset('storage/'. $category->image)}}"
+                width="120px">
+            <br><br>
+                @endif
 
-                  <a href="{{route('categories.index', [$category->id])}}"
-                    class="btn text-white btn-danger btn-sm">Back</a>
+            <input
+                type="file"
+                class="form-control {{$errors->first('image') ? "is-invalid" :""}}"
+                name="image">
+            <small
+                class="text-muted">Kosongkan jika tidak ingin mengubah gambar</small>
+
+                <div class="invalid-feedback">
+                    {{$errors->first('image')}}
+                </div>
+                <br><br>
+
+            <input
+                type="submit"
+                class="btn btn-primary btn-sm"
+                value="Update">
+
+            <a
+                href="{{route('categories.index', [$category->id])}}"
+                class="btn text-white btn-danger btn-sm">Back</a>
         </form>
     </div>
 @endsection
