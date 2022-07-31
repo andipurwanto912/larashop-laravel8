@@ -137,6 +137,12 @@
                     </a>
                 </li>
 
+                <li>
+                    <a href="{{route('orders.index')}}">
+                        <span class="oi oi-inbox"></span>Manage Orders
+                    </a>
+                </li>
+
                 <div
                     class="d-block d-md-none">
 

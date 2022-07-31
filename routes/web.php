@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use App\Models\Category;
 
 /*
@@ -62,3 +63,6 @@ Route::resource('books', BookController::class);
 
 //ajax category
 Route::get('/ajax/categories/search', [CategoryController::class, 'ajaxSearch']);
+
+//manage order
+Route::resource('orders', OrderController::class);
